@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Booky - User Profile</title>
+    <link rel="stylesheet" href="css/style.css" />
+  </head>
+  <body class="dashboard">
+    <header class="header">
+      <h1 class="logo" onclick="goToDashboard()">📚 Booky</h1>
+      <div class="profile-circle" onclick="goToProfile()">
+        <span>U</span>
+      </div>
+    </header>
+
+    <main class="user-profile-container">
+      <div class="container">
+        <!-- Profile Section -->
+        <section class="profile-section">
+          <h2>Profile</h2>
+          <form id="editProfileForm">
+            <label for="username">Username</label>
+            <input type="text" id="username" value="CurrentUser" required />
+            <label for="email">Email</label>
+            <input type="email" id="email" value="user@example.com" required />
+            <label for="password">Password</label>
+            <input type="password" id="password" placeholder="New password" />
+            <button type="submit">Update Profile</button>
+          </form>
+        </section>
+
+        <!-- Book Listings Posted Section -->
+        <section class="books-posted">
+          <h2>My Book Listings</h2>
+          <div id="myListings" class="results">
+            <!-- Static book card ------- Done-->
+            <div class="book-card">
+              <h3>Placeholder Title</h3>
+              <p><strong>Type:</strong> Sell ($10)</p>
+              <p><strong>Status:</strong> Available</p>
+              <button class="edit-btn">Edit</button>
+              <button class="delete-btn">Delete</button>
+            </div>
+          </div>
+          <div class="pagination">
+            <button onclick="prevPageL()" id="prevBtn">Prev</button>
+            <span id="page1Info">1 of 5</span>
+            <button onclick="nextPageL()" id="nextBtn">Next</button>
+          </div>
+        </section>
+
+        <!-- Requests Received Section -->
+        <section class="requests-received">
+          <h2>Requests for my Books</h2>
+          <div id="requests" class="results">
+            <!-- Static book(request) card ----- Done-->
+            <div class="book-card">
+              <h3>The Hobbit</h3>
+              <p><strong>Requester:</strong> Alice</p>
+              <p><strong>Transaction:</strong> Giveaway</p>
+              <p><strong>Status:</strong> Pending</p>
+              <!-- accept and decline buttons -->
+            </div>
+          </div>
+          <div class="pagination">
+            <button onclick="prevPageR()" id="prevBtnR">Prev</button>
+            <span id="pageInfoR">1 of 5</span>
+            <button onclick="nextPageR()" id="nextBtnR">Next</button>
+          </div>
+        </section>
+
+        <!-- Book requests -->
+        <section class="books-requested">
+          <h2>My Book Requests</h2>
+          <div id="myresults" class="results">
+            <div class="book-card">
+              <h3>1984</h3>
+              <p><strong>Type:</strong> Sell ($10)</p>
+              <p><strong>Status:</strong> Available</p>
+              <button class="delete-btn">Delete</button>
+            </div>
+          </div>
+          <div class="pagination">
+            <button onclick="prevPageM()" id="prevBtnM">Prev</button>
+            <span id="pageInfoM">1 of 5</span>
+            <button onclick="nextPageM()" id="nextBtnM">Next</button>
+          </div>
+        </section>
+
+        <section class="logout-section">
+          <button id="logoutBtn">Logout</button>
+        </section>
+      </div>
+    </main>
+
+    <script src="js/user-profile.js"></script>
+  </body>
+</html>
