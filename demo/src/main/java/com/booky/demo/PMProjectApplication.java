@@ -4,10 +4,10 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class EpamSpringProjectApplication {
+public class PMProjectApplication {
 
 	public static void main(String[] args) {
-		SpringApplication.run(EpamSpringProjectApplication.class, args);
+		SpringApplication.run(PMProjectApplication.class, args);
 	}
 
 }
