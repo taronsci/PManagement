@@ -93,7 +93,6 @@ body.dashboard {
 }
 
 /* Header with logo at top left */
-
 .header {
   display: flex;
   align-items: center;

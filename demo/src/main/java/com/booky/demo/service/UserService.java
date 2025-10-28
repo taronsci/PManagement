@@ -49,7 +49,7 @@ public class UserService implements UserDetailsService {
         User user = userRepository.findByUsername(username)
                 .orElseThrow(()-> new UsernameNotFoundException("User not found"));
 
-        return new UserDTO(user.getId(), user.getUsername(), user.getEmail(),null);
+        return new UserDTO(user.getId(), user.getName(), user.getSurname(), user.getUsername(), user.getEmail(),null);
     }
 
     @Transactional

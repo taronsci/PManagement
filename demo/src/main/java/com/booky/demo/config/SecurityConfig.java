@@ -16,17 +16,17 @@ public class SecurityConfig {
         http
                 .csrf(AbstractHttpConfigurer::disable)
                 .authorizeHttpRequests(auth -> auth
-                        .requestMatchers("/", "/static/login.html", "/static/index.html", "/static/user-profile.html", "/static/signup.html", "/static/css/**", "/static/js/**").permitAll()
+                        .requestMatchers("/", "/login.html", "/index.html", "/user-profile.html", "/signup.html", "/css/**", "/js/**").permitAll()
                         .requestMatchers("/api/user/login", "/api/user/signup","/api/user/check").permitAll()
-                        .requestMatchers("/api/listing", "/api/listing/search").permitAll()
+//                        .requestMatchers("/api/listing", "/api/listing/search").permitAll()
                         .anyRequest().authenticated()
                 )
                 .formLogin(form -> form
-                        .loginPage("/static/login.html")
+                        .loginPage("/login.html")
                         .loginProcessingUrl("/api/user/login")
                         .successHandler((req, res, auth) -> res.setStatus(HttpServletResponse.SC_OK))
                         .failureHandler((req, res, ex) -> res.setStatus(HttpServletResponse.SC_UNAUTHORIZED))
-                        .defaultSuccessUrl("/static/index.html",true)
+                        .defaultSuccessUrl("/index.html",true)
                         .permitAll()
                 );
 

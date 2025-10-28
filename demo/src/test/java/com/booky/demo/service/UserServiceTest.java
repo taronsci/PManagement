@@ -107,7 +107,7 @@ public class UserServiceTest {
     //register
     @Test
     void register_ShouldReturnEmpty_WhenUserAlreadyExists() {
-        UserDTO userDTO = new UserDTO(0, "taronsci", "taronsci@example.com", "pass123");
+        UserDTO userDTO = new UserDTO(0, "taron","Schisas", "taronsci", "taronsci@example.com", "pass123");
         when(userDAO.getIdByUsername("taronsci")).thenReturn(Optional.of(1));
 
         Optional<Integer> result = userService.register(userDTO);
@@ -118,9 +118,9 @@ public class UserServiceTest {
 
     @Test
     void register_ShouldReturnId_WhenUserDoesNotExist() {
-        UserDTO userDTO = new UserDTO(0, "megan", "megan@example.com", "pass123");
+        UserDTO userDTO = new UserDTO(0, "megan", "Smith", "megs", "megan@example.com", "pass123");
 
-        when(userDAO.getIdByUsername("megan")).thenReturn(Optional.empty());
+        when(userDAO.getIdByUsername("megs")).thenReturn(Optional.empty());
         when(passwordEncoder.encode("pass123")).thenReturn("encodedPass");
         when(userDAO.register(any(User.class))).thenReturn(42);
 
@@ -183,7 +183,7 @@ public class UserServiceTest {
 
         String name = "alice";
 
-        UserDTO updatedDTO = new UserDTO(1, "alice", "alice@example.com", "encodedPass");
+        UserDTO updatedDTO = new UserDTO(1, "alice","Johnson","Allie", "alice@example.com", "encodedPass");
 
         when(userDAO.getIdByUsername(name)).thenReturn(Optional.of(1));
         when(userDAO.updateProfileDetails(user)).thenReturn(updatedDTO);
