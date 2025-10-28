@@ -60,6 +60,8 @@ public class UserService implements UserDetailsService {
             return Optional.empty();
 
         User newUser = new User();
+        newUser.setName(user.name());
+        newUser.setSurname(user.surname());
         newUser.setUsername(user.username());
         newUser.setEmail(user.email());
         newUser.setPassword(passwordEncoder.encode(user.password()));
