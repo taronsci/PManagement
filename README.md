@@ -1,6 +1,6 @@
 To run application  
 
-0)Add users table to DB  
+0)Add users table to DB <br>  
 1)In application.properties - fill in datasource password, make sure 
 datasource name matches what you have in pgAdmin  
 2)Run PMProjectApplication  
