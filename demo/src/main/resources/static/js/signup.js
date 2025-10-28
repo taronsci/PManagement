@@ -3,13 +3,21 @@ const signupForm = document.getElementById("signupForm");
 document.getElementById("signupForm").addEventListener("submit", async function(event) {
   event.preventDefault();
 
+  const name = document.getElementById("name").value.trim();
+  const surname = document.getElementById("surname").value.trim();
+
   const username = document.getElementById("username").value.trim();
   const email = document.getElementById("email").value.trim();
   const password = document.getElementById("password").value;
   const confirmPassword = document.getElementById("confirmPassword").value;
 
-  if (!username || !email || !password || !confirmPassword) {
+  if (!name || !surname || !username || !email || !password || !confirmPassword) {
     alert("All fields are required!");
+    return;
+  }
+
+  if (!isValidEmailDomain(email)) {
+    alert("Your email domain is not allowed :)");
     return;
   }
 
@@ -22,6 +30,8 @@ document.getElementById("signupForm").addEventListener("submit", async function(
 
   // Grab user data
   const user = {
+    name: name,
+    surname: surname,
     username: username,
     email: email,
     password: password
@@ -61,4 +71,9 @@ document.getElementById("signupForm").addEventListener("submit", async function(
 
 function goToDashboard() {
   window.location.href = "index.html";
+}
+
+function isValidEmailDomain(email) {
+  const regex = /^[\w.-]+@aua\.am$/i;
+  return regex.test(email);
 }

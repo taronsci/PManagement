@@ -26,14 +26,16 @@ public class UserDAO {
     }
 
     public Integer register(User user) {
-        String sql = "INSERT INTO users (username, email, password) VALUES(?, ?, ?)";
+        String sql = "INSERT INTO users (name, surname, username, email, password) VALUES(?, ?, ?, ?, ?)";
 
         KeyHolder keyHolder = new GeneratedKeyHolder();
         jdbcTemplate.update(connection -> {
             PreparedStatement ps = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
-            ps.setString(1, user.getUsername());
-            ps.setString(2, user.getEmail());
-            ps.setString(3, user.getPassword());
+            ps.setString(1,user.getName());
+            ps.setString(2,user.getSurname());
+            ps.setString(3, user.getUsername());
+            ps.setString(4, user.getEmail());
+            ps.setString(5, user.getPassword());
             return ps;
         }, keyHolder);
         Number key = (Number) keyHolder.getKeys().get("id");
@@ -125,10 +127,12 @@ public class UserDAO {
     }
 
     public UserDTO getUserDTOById(Integer id) {
-        String sql = "SELECT id, username, email FROM users WHERE id = ?";
+        String sql = "SELECT id, name, surname, username, email FROM users WHERE id = ?";
         return jdbcTemplate.queryForObject(sql, (rs, rowNum) ->
                         new UserDTO(
                                 rs.getInt("id"),
+                                rs.getString("name"),
+                                rs.getString("surname"),
                                 rs.getString("username"),
                                 rs.getString("email"),
                                 null

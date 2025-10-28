@@ -15,6 +15,12 @@ public class User {
     private int id;
 
     @Column(nullable = false)
+    private String name;
+
+    @Column(nullable = false)
+    private String surname;
+
+    @Column(nullable = false)
     private String username;
 
     @Column(nullable = false)

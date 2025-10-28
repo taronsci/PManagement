@@ -8,7 +8,7 @@
   </head>
   <body class="dashboard">
     <header class="header">
-      <h1 class="logo" onclick="goToDashboard()">📚 Booky</h1>
+      <h1 class="logo" onclick="goToDashboard()">Lost & Found 🕵️</h1>
       <div class="header-actions">
         <button onclick="goToLogin()">Login</button>
         <button onclick="goToSignup()">Sign Up</button>
@@ -22,20 +22,21 @@
     <!-- Actions row -->
     <section class="actions">
       <button class="register-btn" onclick="registerBook()">
-        + Register Book
+        + Register Item
       </button>
 
       <input
         type="text"
         id="searchBar"
-        placeholder="Search by title or author..."
+        placeholder="Search by item type or name"
       />
+      <!-- maybe search by description -->
+
       <select id="filterType">
-        <option value="ALL">All Transactions</option>
-        <option value="SELL">Sell</option>
-        <option value="RENT">Rent</option>
-        <option value="EXCHANGE">Exchange</option>
-        <option value="GIVEAWAY">Giveaway</option>
+        <option value="ALL">All Items</option>
+        <option value="SELL">Lost</option>
+        <option value="RENT">Found</option>
+        <!-- change value names -->
       </select>
       <button id="search" onclick="performSearch()">Search</button>
     </section>
@@ -43,6 +44,7 @@
     <!-- Book listings grid -->
     <main id="resultsContainer" class="results">
       <div class="book-card">
+        <!-- chnage according to Item-->
         <h3>1984</h3>
         <p><strong>Author:</strong> George Orwell</p>
         <p><strong>Condition:</strong> Used</p>
@@ -56,11 +58,12 @@
       <button onclick="nextPage()" id="nextBtn">Next</button>
     </div>
 
-    <!-- Register Book Modal -->
+    <!-- Register Item Modal -->
     <div id="registerModal" class="modal">
       <div class="modal-content">
         <span class="close-btn">&times;</span>
-        <h2>Register a Book</h2>
+        <h2>Register an Item</h2>
+        <!-- change modal according to Item -->
         <form id="registerBookForm">
           <label for="title">Title <span style="color: red">*</span></label>
           <input type="text" id="title" required />
@@ -88,10 +91,8 @@
           >
           <select id="transaction" required>
             <option value="">Select Transaction</option>
-            <option value="SELL">Sell</option>
-            <option value="RENT">Rent</option>
-            <option value="EXCHANGE">Exchange</option>
-            <option value="GIVEAWAY">Giveaway</option>
+            <option value="SELL">Lost</option>
+            <option value="RENT">Found</option>
           </select>
 
           <label for="price">Price</label>

@@ -1,14 +1,21 @@
 package com.booky.demo.dto;
 
+import com.booky.demo.validation.AUAEmail;
 import jakarta.validation.constraints.*;
 
 public record UserDTO (
     int id,
 
     @NotBlank
+    String name,
+
+    @NotBlank
+    String surname,
+
+    @NotBlank
     String username,
 
-    @Email
+    @AUAEmail
     @NotBlank
     String email,
 

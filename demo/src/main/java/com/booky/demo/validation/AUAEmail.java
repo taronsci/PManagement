@@ -6,11 +6,11 @@ import jakarta.validation.Payload;
 import java.lang.annotation.*;
 
 @Documented
-@Constraint(validatedBy = YearValidator.class)
+@Constraint(validatedBy = AUAEmailValidator.class)
 @Target({ElementType.FIELD, ElementType.PARAMETER})
 @Retention(RetentionPolicy.RUNTIME)
-public @interface MaxCurrentYear {
-    String message() default "Year cannot be in the future";
+public @interface AUAEmail {
+    String message() default "You must have aua email to use our website";
     Class<?>[] groups() default {};
     Class<? extends Payload>[] payload() default {};
 }
