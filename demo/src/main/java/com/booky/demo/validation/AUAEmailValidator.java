@@ -10,7 +10,7 @@ public class AUAEmailValidator implements ConstraintValidator<AUAEmail, String> 
         if(email == null)
             return false;
 
-        String regex = "^[A-Za-z0-9._%+-]+@aua\\.am$";
+        String regex = "^[A-Za-z0-9._%+-]+@edu\\.aua\\.am$";
 
         return email.matches(regex);
     }

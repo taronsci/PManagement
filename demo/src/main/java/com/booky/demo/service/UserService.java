@@ -4,6 +4,7 @@ import com.booky.demo.dao.UserDAO;
 import com.booky.demo.dao.UserRepository;
 import com.booky.demo.dto.UserDTO;
 import com.booky.demo.model.User;
+import com.booky.demo.model.VerificationToken;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 import jakarta.transaction.Transactional;
@@ -26,12 +27,20 @@ public class UserService implements UserDetailsService {
     private final BCryptPasswordEncoder passwordEncoder;
     private final UserDAO userDAO;
     private UserRepository userRepository;
+    private VerificationTokenService verificationTokenService;
+    private EmailService emailService;
 
 
-    public UserService(UserDAO userDAO, UserRepository userRepository, BCryptPasswordEncoder passwordEncoder) {
+    public UserService(UserDAO userDAO,
+                       UserRepository userRepository,
+                       BCryptPasswordEncoder passwordEncoder,
+                       VerificationTokenService verificationTokenService,
+                       EmailService emailService) {
         this.userDAO = userDAO;
         this.userRepository = userRepository;
         this.passwordEncoder = passwordEncoder;
+        this.verificationTokenService = verificationTokenService;
+        this.emailService = emailService;
     }
 
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
@@ -42,6 +51,7 @@ public class UserService implements UserDetailsService {
                 .withUsername(user.getUsername())
                 .password(user.getPassword())
                 .authorities("USER")
+                .disabled(!user.isEnabled())
                 .build();
     }
 
@@ -66,23 +76,44 @@ public class UserService implements UserDetailsService {
         newUser.setEmail(user.email());
         newUser.setPassword(passwordEncoder.encode(user.password()));
 
-        return Optional.of(userDAO.register(newUser));
+        Optional<Integer> id = Optional.of(userDAO.register(newUser));
+        System.out.println(id.get());
+
+        User savedUser = userRepository.getReferenceById(id.get());
+        VerificationToken token = verificationTokenService.createToken(savedUser);
+        emailService.sendVerificationEmail(newUser.getEmail(), token);
+
+        return id;
     }
 
     @Transactional
-    public Optional<Integer> login(User user) {
-        Optional<Integer> idOpt = userDAO.getIdByUsername(user.getUsername());
+    public boolean verifyToken(String token){
+        Optional<User> user = verificationTokenService.verifyToken(token);
+        if(user.isEmpty())
+            return false;
 
-        if(idOpt.isEmpty())
-            return Optional.empty();
+        User us = user.get();
+        us.setEnabled(true);
+        userRepository.save(us);
 
-        Integer id = idOpt.get();
-        String storedHash = userDAO.getPasswordHashById(id);
-        if (!passwordEncoder.matches(user.getPassword(), storedHash))
-            return Optional.empty();
-
-        return Optional.of(id);
+        return true;
     }
+
+//    @Transactional
+//    public Optional<Integer> login(User user) {
+//        System.out.println("logging in");
+//        Optional<Integer> idOpt = userDAO.getIdByUsername(user.getUsername());
+//
+//        if(idOpt.isEmpty())
+//            return Optional.empty();
+//
+//        Integer id = idOpt.get();
+//        String storedHash = userDAO.getPasswordHashById(id);
+//        if (!passwordEncoder.matches(user.getPassword(), storedHash))
+//            return Optional.empty();
+//
+//        return Optional.of(id);
+//    }
 
     @Transactional
     public ResponseEntity<UserDTO> updateProfile(User user, String name) {

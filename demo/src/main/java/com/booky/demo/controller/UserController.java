@@ -35,6 +35,12 @@ public class UserController {
                 .body(userId.get());
     }
 
+    @GetMapping("/verify")
+    public ResponseEntity<?> verify(@RequestParam("token") String token) {
+        if (userService.verifyToken(token))
+            return ResponseEntity.ok(Map.of("message", "Account verified successfully!"));
+        return ResponseEntity.badRequest().body(Map.of("error", "Invalid or expired token"));
+    }
 
     @GetMapping("/check")
     public ResponseEntity<?> checkAuth() {

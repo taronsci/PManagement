@@ -30,6 +30,9 @@ document.getElementById("loginForm").addEventListener("submit", async function(e
       alert(`User "${username}" registered successfully!`);
       goToDashboard();
     }
+    else if (userResponse.status === 403) {
+          alert("Account not enabled! Check email");
+    }
     else if (userResponse.status === 401) {
       alert("Incorrect username or password!");
     } 

@@ -46,8 +46,8 @@ document.getElementById("signupForm").addEventListener("submit", async function(
     
     if (userResponse.status === 201) {
       const userID = await userResponse.json();
-
-      alert("signup successful! Please log in.")
+//      alert("signup successful! Please log in.")
+      alert("please verify your email to enable your account")
       window.location.href = "login.html";
     } 
     else if (userResponse.status === 409) {
@@ -74,7 +74,7 @@ function goToDashboard() {
 }
 
 function isValidEmailDomain(email) {
-  const regex = /^[\w.-]+@aua\.am$/i;
+  const regex = /^[\w.-]+@edu.aua\.am$/i;
   return regex.test(email);
 }
 
