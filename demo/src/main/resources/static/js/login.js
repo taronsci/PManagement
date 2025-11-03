@@ -47,5 +47,14 @@ function goToDashboard() {
   window.location.href = "/index.html";
 }
 
+//alert for signing in
+const params = new URLSearchParams(window.location.search);
+const status = params.get("status");
+
+if (status === "success"){
+  alert("Account verified successfully! Please log in");
+}else if (status === "error"){
+  alert("Invalid or expired token! Try signing in again");
+}
 
 

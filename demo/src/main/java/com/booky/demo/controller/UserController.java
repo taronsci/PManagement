@@ -12,6 +12,7 @@ import org.springframework.security.authentication.AnonymousAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.view.RedirectView;
 
 import java.security.Principal;
 import java.util.Map;
@@ -36,10 +37,15 @@ public class UserController {
     }
 
     @GetMapping("/verify")
-    public ResponseEntity<?> verify(@RequestParam("token") String token) {
-        if (userService.verifyToken(token))
-            return ResponseEntity.ok(Map.of("message", "Account verified successfully!"));
-        return ResponseEntity.badRequest().body(Map.of("error", "Invalid or expired token"));
+    public RedirectView verify(@RequestParam("token") String token) {
+        RedirectView redirectView = new RedirectView();
+
+        if (userService.verifyToken(token)) {
+            redirectView.setUrl("http://localhost:8080/login.html?status=success");
+        } else {
+            redirectView.setUrl("http://localhost:8080/login.html?status=error");
+        }
+        return redirectView;
     }
 
     @GetMapping("/check")
